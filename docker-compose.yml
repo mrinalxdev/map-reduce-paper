@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  master:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: ["./master"]
+    environment:
+      - REDIS_URL=redis:6379
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+    depends_on:
+      - redis
+      - rabbitmq
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["./worker"]
+    environment:
+      - REDIS_URL=redis:6379
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+    depends_on:
+      - redis
+      - rabbitmq
+    deploy:
+      replicas: 3
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
