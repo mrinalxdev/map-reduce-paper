@@ -58,7 +58,6 @@ func (w *Worker) processReduceTask(ctx context.Context, delivery amqp.Delivery) 
         return
     }
 
-    // Example reduce function (sum counts for a word)
     total := 0
     for _, value := range task.Values {
         count := 0
