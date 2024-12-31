@@ -1,4 +1,3 @@
-# README.md
 # MapReduce Implementation in Go
 
 A distributed MapReduce implementation using Go, Redis, and RabbitMQ.
