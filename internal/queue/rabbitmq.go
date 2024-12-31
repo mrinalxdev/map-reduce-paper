@@ -9,7 +9,7 @@ import (
 
 type RabbitMQ struct {
 	conn *amqp.Connection
-	channel *amqp.Channel
+	Channel *amqp.Channel
 }
 
 func NewRabbitMQ(url string) (*RabbitMQ, error){
@@ -39,7 +39,7 @@ func NewRabbitMQ(url string) (*RabbitMQ, error){
 
 	return &RabbitMQ{
 		conn : conn,
-		channel: ch,
+		Channel: ch,
 	}, nil
 }
 
@@ -49,7 +49,7 @@ func (r *RabbitMQ) PublishTask(queueName string, task *models.Task) error {
         return err
     }
 
-    return r.channel.Publish(
+    return r.Channel.Publish(
         "",       
         queueName, 
         false,     
